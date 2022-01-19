@@ -8,15 +8,19 @@ public class ItemOrder {
     private Item orderedItem;
     private int quantity;
 
+    // constructor
     public ItemOrder(Item orderedItem, int quantity) {
+        // set default values to the arguments passed in
         this.orderedItem = orderedItem;
         this.quantity = quantity;
     }
 
+    // call the item's priceFor() class for with the provided quantity and return that value
     public double getPrice() {
         return orderedItem.priceFor(quantity);
     }
 
+    // getter for the item we're getting info for
     public Item getItem() {
         return orderedItem;
     }

@@ -3,6 +3,7 @@
 // CS 211
 // The Item class for Assignment 3 in CS 211
 
+// import libraries
 import java.text.*;
 
 public class Item {
@@ -15,11 +16,11 @@ public class Item {
 
     public Item(String name, double price) throws IllegalArgumentException{
         if (price < 0) {
-            //
+            // don't wanna go broke
             throw new IllegalArgumentException();
         }
 
-        //
+        // declare default values
         this.name = name;
         this.price = price;
         // set the bulk quantity to -1 so that bulk price isn't applied.
@@ -27,13 +28,14 @@ public class Item {
         this.bulkPrice = price;
     }
 
+    // Overload the constructor
     public Item(String name, double price, int bulkQuantity, double bulkPrice) throws IllegalArgumentException {
         if(price < 0 || bulkQuantity < 0 || bulkPrice < 0) {
             // throw exception either the price, bulk quantity, or bulk price is negative
             throw new IllegalArgumentException();
         }
 
-        //
+        // set default values
         this.name = name;
         this.price = price;
         this.bulkQuantity = bulkQuantity;
@@ -57,6 +59,7 @@ public class Item {
             return totalPrice;
         }
 
+        // if not bulk price just calculate the number of items times the normal price
         totalPrice += quantity * price;
 
         return totalPrice;
@@ -77,6 +80,7 @@ public class Item {
         return name + ", " + textPrice;
     }
 
+    // private method to determine if there's a bulk price or not
     private boolean hasBulkPrice() {
         return bulkQuantity >= 0;
     }
