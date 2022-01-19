@@ -3,6 +3,8 @@
 // CS 211
 // The Item class for Assignment 3 in CS 211
 
+import java.text.*;
+
 public class Item {
 
     // declare fields
@@ -20,9 +22,8 @@ public class Item {
         //
         this.name = name;
         this.price = price;
-        // set the bulk quantity to the max int value so that bulk price isn't applied.
-        // if they actually order the max int value, then all of those will just be the default price.
-        this.bulkQuantity = Integer.MAX_VALUE;
+        // set the bulk quantity to -1 so that bulk price isn't applied.
+        this.bulkQuantity = -1;
         this.bulkPrice = price;
     }
 
@@ -47,20 +48,36 @@ public class Item {
         // if there's a bulk price then apply it to as many items as possible
         double totalPrice = 0;
 
-        // apply bulk price to all the items that qualify
-        totalPrice += quantity/bulkQuantity*bulkPrice;
-        // second statement applies the normal price to all the remaining items
-        totalPrice += quantity%bulkQuantity*price;
+        if (hasBulkPrice() && quantity >= bulkQuantity) {
+            // apply bulk price to all the items that qualify
+            totalPrice += (quantity / bulkQuantity) * bulkPrice;
+            // second statement applies the normal price to all the remaining items
+            totalPrice += (quantity % bulkQuantity) * price;
+
+            return totalPrice;
+        }
+
+        totalPrice += quantity * price;
 
         return totalPrice;
+
     }
 
     public String toString() {
+
+        // create a NumberFormat instance
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        String textPrice = nf.format(price);
         // if there's a bulk price, then state the price and quantity needed
-        if (bulkPrice != price*bulkQuantity) {
-            return name + ", $" + price + " (" + bulkQuantity + " for $" + bulkPrice + ")";
+        if (hasBulkPrice()) {
+            String textBulkPrice = nf.format(bulkPrice);
+            return name + ", " + textPrice + " (" + bulkQuantity + " for " + textBulkPrice + ")";
         }
         // if there's no bulk price, then return the normal price per item
-        return name + ", $" + price;
+        return name + ", " + textPrice;
+    }
+
+    private boolean hasBulkPrice() {
+        return bulkQuantity >= 0;
     }
 }
