@@ -1,3 +1,8 @@
+// Allen Bao
+// 1/18/2022
+// CS 211
+// The Item class for Assignment 3 in CS 211
+
 public class Item {
 
     // declare fields
@@ -6,11 +11,13 @@ public class Item {
     private int bulkQuantity;
     private double bulkPrice;
 
-    public Item(String name; double price) throws IllegalArgumentException{
+    public Item(String name, double price) throws IllegalArgumentException{
         if (price < 0) {
-            // throw IllegalArgumentException;
+            //
+            throw new IllegalArgumentException();
         }
 
+        //
         this.name = name;
         this.price = price;
         // set the bulk quantity to the max int value so that bulk price isn't applied.
@@ -21,9 +28,11 @@ public class Item {
 
     public Item(String name, double price, int bulkQuantity, double bulkPrice) throws IllegalArgumentException {
         if(price < 0 || bulkQuantity < 0 || bulkPrice < 0) {
-            // throw IllegalArgumentException;
+            // throw exception either the price, bulk quantity, or bulk price is negative
+            throw new IllegalArgumentException();
         }
 
+        //
         this.name = name;
         this.price = price;
         this.bulkQuantity = bulkQuantity;
@@ -31,6 +40,10 @@ public class Item {
     }
 
     public double priceFor(int quantity) throws IllegalArgumentException {
+        // throw exception if negative items
+        if (quantity < 0) {
+            throw new IllegalArgumentException();
+        }
         // if there's a bulk price then apply it to as many items as possible
         double totalPrice = 0;
 
