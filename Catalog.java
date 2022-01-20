@@ -30,7 +30,11 @@ public class Catalog {
     }
 
     // getter that returns the item at a certain index
-    public Item get(int index) {
+    public Item get(int index) throws IndexOutOfBoundsException {
+        // if there's a request for an illegal index, then throw an IndexOfBoundsException
+        if (index >= items.size() || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
         return items.get(index);
     }
 
